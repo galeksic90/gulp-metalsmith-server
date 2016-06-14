@@ -1,26 +1,147 @@
 {
-	"name": "gulp-metalsmith-server",
-	"version": "0.0.2",
-	"description": "Gulp server for metalsmith",
-	"author": "Goran Aleksic <goranaleksic@me.com>",
-	"maintainers": [
-		"Goran Aleksic <goranaleksic@me.com>"
-	],
-	"contributors": [
-		"Goran Aleksic <goranaleksic@me.com>"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/hivearts/gulp-metalsmith-server.git"
-	},
-	"engines": {
-		"node": "0.12",
-		"npm": "2.8.3"
-	},
-	"dependencies": {
-		"body-parser": "^1.12.3",
-		"colors": "^1.0.3",
-		"express": "^4.12.3",
-		"nodemailer": "^1.3.4"
-	}
+  "_args": [
+    [
+      "gulp-metalsmith-server@0.0.5",
+      "/Users/drsinisa/Projects/gulp-metalsmith-tasks/projects/mbm-site/dist"
+    ],
+    [
+      "gulp-metalsmith-server@^0.1.0",
+      "/Users/drsinisa/Projects/gulp-metalsmith-tasks"
+    ]
+  ],
+  "_from": "gulp-metalsmith-server@^0.1.0",
+  "_id": "gulp-metalsmith-server@0.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/gulp-metalsmith-server",
+  "_nodeVersion": "6.1.0",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/gulp-metalsmith-server-0.1.0.tgz_1465898348625_0.9959809775464237"
+  },
+  "_npmUser": {
+    "email": "goganogga@gmail.com",
+    "name": "hivearts"
+  },
+  "_npmVersion": "3.8.6",
+  "_phantomChildren": {
+    "accepts": "1.2.13",
+    "array-flatten": "1.1.1",
+    "content-disposition": "0.5.1",
+    "content-type": "1.0.2",
+    "cookie": "0.1.5",
+    "cookie-signature": "1.0.6",
+    "debug": "2.2.0",
+    "depd": "1.1.0",
+    "escape-html": "1.0.3",
+    "etag": "1.7.0",
+    "finalhandler": "0.4.1",
+    "fresh": "0.3.0",
+    "merge-descriptors": "1.0.1",
+    "methods": "1.1.2",
+    "on-finished": "2.3.0",
+    "parseurl": "1.3.1",
+    "path-to-regexp": "0.1.7",
+    "proxy-addr": "1.0.10",
+    "range-parser": "1.0.3",
+    "send": "0.13.1",
+    "serve-static": "1.10.2",
+    "type-is": "1.6.13",
+    "utils-merge": "1.0.0",
+    "vary": "1.0.1"
+  },
+  "_requested": {
+    "name": "gulp-metalsmith-server",
+    "raw": "gulp-metalsmith-server@^0.1.0",
+    "rawSpec": "^0.1.0",
+    "scope": null,
+    "spec": ">=0.1.0 <0.2.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/gulp-metalsmith-server/-/gulp-metalsmith-server-0.1.0.tgz",
+  "_shasum": "6279dfce6f816fdbb2803590e14967fecb104023",
+  "_shrinkwrap": null,
+  "_spec": "gulp-metalsmith-server@^0.1.0",
+  "_where": "/Users/drsinisa/Projects/gulp-metalsmith-tasks",
+  "author": {
+    "email": "goranaleksic@me.com",
+    "name": "Goran Aleksic"
+  },
+  "bugs": {
+    "url": "https://github.com/hivearts/gulp-metalsmith-server/issues"
+  },
+  "contributors": [
+    {
+      "email": "goranaleksic@me.com",
+      "name": "Goran Aleksic"
+    }
+  ],
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "colors": "^1.1.2",
+    "express": "^4.13.4",
+    "metalsmith": "^2.1.0",
+    "metalsmith-beautify": "^0.1.0",
+    "metalsmith-collections": "^0.7.0",
+    "metalsmith-html-minifier": "^2.0.0",
+    "metalsmith-ignore": "^0.1.2",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-metadata": "0.0.4",
+    "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-prismic": "^0.10.0",
+    "metalsmith-redirect": "^2.1.0",
+    "metalsmith-templates": "^0.7.0",
+    "metalsmith-writemetadata": "^0.4.5",
+    "nodemailer": "^2.4.1"
+  },
+  "description": "Gulp server for metalsmith",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "6279dfce6f816fdbb2803590e14967fecb104023",
+    "tarball": "https://registry.npmjs.org/gulp-metalsmith-server/-/gulp-metalsmith-server-0.1.0.tgz"
+  },
+  "engines": {
+    "node": "6.1.0",
+    "npm": "3.8.3"
+  },
+  "homepage": "https://github.com/hivearts/gulp-metalsmith-server#readme",
+  "maintainers": [
+    {
+      "email": "goganogga@gmail.com",
+      "name": "hivearts"
+    }
+  ],
+  "name": "gulp-metalsmith-server",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hivearts/gulp-metalsmith-server.git"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "0.1.0",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "pkgid": "gulp-metalsmith-server@0.0.5",
+      "required": {
+        "node": "6.1.0",
+        "npm": "3.8.3"
+      }
+    },
+    {
+      "code": "ENOTSUP",
+      "pkgid": "gulp-metalsmith-server@0.1.0",
+      "required": {
+        "node": "6.1.0",
+        "npm": "3.8.3"
+      }
+    }
+  ]
 }

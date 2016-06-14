@@ -1,4 +1,8 @@
 # gulp-metalsmith-server
 
 
-This module need config file, config file Coming Soon!
+Copy server.json from examples folder to your project root directory.
+
+start server:
+require('gulp-metalsmith-server').startServer();
+

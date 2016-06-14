@@ -1,0 +1,28 @@
+{
+    "publicDir": "public",
+    "webhook": "/webhook",
+    "email": {
+        "user": "example@gmail.com",
+        "pass": "",
+        "sendTo": "exampleTo@gmail.com"
+    },
+    "metalsmith": {
+      "source": "content",
+      "dest": "",
+      "metadata": {},
+      "loadmetadata": {},
+      "redirect": {},
+      "ignore": [".DS_Store"],
+      "prismic": {},
+      "collections": {},
+      "writemetadata": {},
+      "markdown": {},
+      "permalinks": {},
+      "templates": {
+        "engine": "jade",
+        "directory": "layouts"
+      },
+      "htmlminifier": {},
+      "htmlbeautifier": {"use": true}
+    }
+}
