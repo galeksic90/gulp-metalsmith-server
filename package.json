@@ -95,7 +95,8 @@
     "metalsmith-redirect": "^2.1.0",
     "metalsmith-templates": "^0.7.0",
     "metalsmith-writemetadata": "^0.4.5",
-    "nodemailer": "^2.4.1"
+    "nodemailer": "^2.4.1",
+    "then-jade": "^2.4.1"
   },
   "description": "Gulp server for metalsmith",
   "devDependencies": {},
@@ -125,7 +126,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "version": "0.1.0",
+  "version": "0.1.2",
   "warnings": [
     {
       "code": "ENOTSUP",
