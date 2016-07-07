@@ -9,6 +9,10 @@ var express = require('express'),
 
 var metalsmith_task = require('./lib/metalsmith_task.js');
 
+var debug = require('debug');
+
+debug.enable('*');
+
 colors.setTheme({
   silly: 'rainbow',
   input: 'grey',
