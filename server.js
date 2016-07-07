@@ -34,9 +34,9 @@ app.post(config.webhook, function(req, res) {
     'Webhook detected, rebuilding website started..'
     .cyan);
 
-  function cb() {
-    console.log(new Date() + ': ' + 'Rebuilding website completed.'.green);
-  }
+    function cb(err, files) {
+        console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+    }
 
   // rebuild website
   metalsmith_task.build(config.publicDir, config.metalsmith, cb);
@@ -90,9 +90,9 @@ var server = app.listen(port, function() {
   console.log('Listening on port '.data + server.address().port);
   console.log(new Date() + ': ' + 'Building website to /public..'.cyan);
 
-  function cb() {
-    console.log(new Date() + ': ' + 'Building website completed.'.green);
-  }
+    function cb(err, files) {
+        console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+    }
 
   metalsmith_task.build(config.publicDir, config.metalsmith, cb);
 
