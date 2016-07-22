@@ -62,13 +62,21 @@ app.post('/sendemail', function(req, res) {
     }
   });
 
+  var nameText = config.email.nameText || (config.email.eng ? 'Name:' : 'Ime: ');
+  var emailTelText = config.email.emailTelText || (config.email.eng ? 'Email/Phone: ' : 'Email/Tel: ');
+  var companyText = config.email.companyText || (config.email.eng ? 'Company' : 'Kompanija: ');
+  var serviceText = config.email.serviceText || (config.email.eng ? 'Type of service' : 'Vrsta usluge: ');
+  var dontReplyText = config.email.dontReplyText || (config.email.eng ?
+          '***Do not reply to this message with "Reply" option, use data from "Email/Phone:" field provided!'
+          : '***Na ovu poruku niposto ne odgovarati sa reply, vec na kontakt koji je osoba unela pod Email/Tel polje iznad.');
+
   // setup e-mail data with unicode symbols
   var mailOptions = {
     from: req.body.name + "\u003C" + req.body.email + "\u003E",
     to: config.email.sendTo, // list of receivers
     subject: 'Website contact form',
-    html: 'Ime: ' + req.body.name + '<br>' + 'Email/Tel: ' + req.body.email + '<br>' + 'Kompanija: ' + req.body.company + '<br>' + 'Vrsta usluge: ' + req.body.service +
-      '<br><br>' + req.body.message + '<br><br>' + '***Na ovu poruku niposto ne odgovarati sa reply, vec na kontakt koji je osoba unela pod Email/Tel polje iznad.',
+    html: nameText + req.body.name + '<br>' + emailTelText + req.body.email + '<br>' + companyText + req.body.company + '<br>' + serviceText + req.body.service +
+      '<br><br>' + req.body.message + '<br><br>' + dontReplyText,
     generateTextFromHTML: true
   };
 
