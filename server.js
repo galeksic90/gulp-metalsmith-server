@@ -81,19 +81,19 @@ app.post('/sendemail', function(req, res) {
   };
 
   // send mail with defined transport object
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Name: ".grey + req.body.name);
-      console.log("Email: ".grey + req.body.email);
-      console.log("Company: ".grey + req.body.company);
-      console.log("Service: ".grey + req.body.service);
-      console.log("Message: ".grey + req.body.message);
-      console.log("Message sent: ".green + info.response);
-      res.send('Message sent');
-    }
-  });
+    console.log("Name: ".grey + req.body.name);
+    console.log("Email: ".grey + req.body.email);
+    console.log("Company: ".grey + req.body.company);
+    console.log("Service: ".grey + req.body.service);
+    console.log("Message: ".grey + req.body.message);
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Message sent: ".green + info.response);
+          res.send('Message sent');
+        }
+    });
 });
 
 // build the website
