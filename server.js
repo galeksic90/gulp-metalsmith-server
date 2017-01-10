@@ -1,11 +1,11 @@
 // Express server for development
 var express = require('express'),
-  app = express(),
-  colors = require('colors'),
-  nodemailer = require('nodemailer'),
-  bodyParser = require('body-parser'),
-  config = require('../../server.json'),
-  port = process.env.PORT || 8080;
+    app = express(),
+    colors = require('colors'),
+    nodemailer = require('nodemailer'),
+    bodyParser = require('body-parser'),
+    config = require('../../server.json'),
+    port = process.env.PORT || 8080;
 
 var MongoClient = require('mongodb').MongoClient, DB;
 
@@ -28,21 +28,66 @@ colors.setTheme({
   error: 'red'
 });
 
+//app.get('*', function(req, res, next) {
+//  console.log(req.url);
+//  next();
+//});
+
 app.use(express.static(config.publicDir));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+var pageCounterInitialValue = 333;
+
+app.get('/pagecounter/:pageId', function(req, res, next) {
+  //console.log('pagecounter begin', req.pageId);
+  if (!req.pageId || !DB) {
+    console.log('pagecounter request failed 1', req.pageId, DB);
+    return res.send('0');
+  }
+
+  DB.collection('PageCounters', function(err, collection) {
+    if (err || !collection) {
+      console.log('pagecounter request failed 2', req.pageId, DB, err);
+      return res.send('0');
+    }
+
+    collection.findOne({_id: req.pageId}, function(err, doc) {
+      if (err) {
+        console.log('pagecounter request failed 3', req.pageId, DB, err);
+        return res.send('0');
+      }
+
+      if (!doc) {
+        console.log('pagecounter new counter for ', req.pageId);
+        collection.insertOne({_id: req.pageId, value: pageCounterInitialValue});
+        return res.send(String(pageCounterInitialValue));
+      }
+
+      collection.update({_id: req.pageId}, {$inc: {value: 1}});
+      res.send(String(doc.value + 1));
+    });
+  });
+});
+
+
+app.param('pageId', function(req, res, next, id) {
+  req.pageId = id;
+  next();
+});
+
+
 // Webhook endpoint
 app.post(config.webhook, function(req, res) {
 
   console.log(new Date() + ': ' +
-    'Webhook detected, rebuilding website started..'
-    .cyan);
+      'Webhook detected, rebuilding website started..'
+          .cyan);
 
-    function cb(err, files) {
-        console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
-    }
+  function cb(err, files) {
+    console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+  }
 
   // rebuild website
   metalsmith_task.build(config.publicDir, config.metalsmith, cb);
@@ -51,40 +96,6 @@ app.post(config.webhook, function(req, res) {
   res.send('Webhook detected, rebuilding website started..');
   res.status(200).end();
 
-});
-
-app.param('pageId', function(req, res, next, id) {
-  req.pageId = id;
-});
-
-app.get('/pagecounter/:pageId', function(req, res, next) {
-  if (!req.pageId || !DB) {
-    console.log('pagecounter request failed 1', req.pageId, DB);
-    return res.json(0);
-  }
-
-  DB.collection('PageCounters', function(err, collection) {
-    if (err || !collection) {
-      console.log('pagecounter request failed 2', req.pageId, DB, err);
-      return res.json(0);
-    }
-
-    collection.findOne({_id: req.pageId}, function(err, doc) {
-      if (err) {
-        console.log('pagecounter request failed 3', req.pageId, DB, err);
-        return res.json(0);
-      }
-
-      if (!doc) {
-        console.log('pagecounter new counter for ', req.pageId);
-        collection.update({_id: req.pageId, value: 1});
-        return res.json(1);
-      }
-
-      collection.update({_id: req.pageId}, {$inc: {value: 1}});
-      res.json(doc.value + 1);
-    });
-  });
 });
 
 // nodemailer
@@ -112,24 +123,24 @@ app.post('/sendemail', function(req, res) {
     to: config.email.sendTo, // list of receivers
     subject: 'Website contact form',
     html: nameText + req.body.name + '<br>' + emailTelText + req.body.email + '<br>' + companyText + req.body.company + '<br>' + serviceText + req.body.service + '<br>' + '---' +
-      '<br><br>' + req.body.message + '<br><br>' + '---' + '<br>' + dontReplyText,
+    '<br><br>' + req.body.message + '<br><br>' + '---' + '<br>' + dontReplyText,
     generateTextFromHTML: true
   };
 
   // send mail with defined transport object
-    console.log("Name: ".grey + req.body.name);
-    console.log("Email: ".grey + req.body.email);
-    console.log("Company: ".grey + req.body.company);
-    console.log("Service: ".grey + req.body.service);
-    console.log("Message: ".grey + req.body.message);
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Message sent: ".green + info.response);
-          res.send('Message sent');
-        }
-    });
+  console.log("Name: ".grey + req.body.name);
+  console.log("Email: ".grey + req.body.email);
+  console.log("Company: ".grey + req.body.company);
+  console.log("Service: ".grey + req.body.service);
+  console.log("Message: ".grey + req.body.message);
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Message sent: ".green + info.response);
+      res.send('Message sent');
+    }
+  });
 });
 
 // build the website
@@ -138,9 +149,9 @@ var server = app.listen(port, function() {
   console.log('Listening on port '.data + server.address().port);
   console.log(new Date() + ': ' + 'Building website to /public..'.cyan);
 
-    function cb(err, files) {
-        console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
-    }
+  function cb(err, files) {
+    console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+  }
 
   metalsmith_task.build(config.publicDir, config.metalsmith, cb);
 
