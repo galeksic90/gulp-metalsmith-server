@@ -7,6 +7,8 @@ var express = require('express'),
   config = require('../../server.json'),
   port = process.env.PORT || 8080;
 
+var MongoClient = require('mongodb').MongoClient, DB;
+
 var metalsmith_task = require('./lib/metalsmith_task.js');
 
 var debug = require('debug');
@@ -49,6 +51,40 @@ app.post(config.webhook, function(req, res) {
   res.send('Webhook detected, rebuilding website started..');
   res.status(200).end();
 
+});
+
+app.param('pageId', function(req, res, next, id) {
+  req.pageId = id;
+});
+
+app.get('/pagecounter/:pageId', function(req, res, next) {
+  if (!req.pageId || !DB) {
+    console.log('pagecounter request failed 1', req.pageId, DB);
+    return res.json(0);
+  }
+
+  DB.collection('PageCounters', function(err, collection) {
+    if (err || !collection) {
+      console.log('pagecounter request failed 2', req.pageId, DB, err);
+      return res.json(0);
+    }
+
+    collection.findOne({_id: req.pageId}, function(err, doc) {
+      if (err) {
+        console.log('pagecounter request failed 3', req.pageId, DB, err);
+        return res.json(0);
+      }
+
+      if (!doc) {
+        console.log('pagecounter new counter for ', req.pageId);
+        collection.update({_id: req.pageId, value: 1});
+        return res.json(1);
+      }
+
+      collection.update({_id: req.pageId}, {$inc: {value: 1}});
+      res.json(doc.value + 1);
+    });
+  });
 });
 
 // nodemailer
@@ -114,3 +150,13 @@ var server = app.listen(port, function() {
 app.use(function(req, res) {
   res.redirect('/404');
 });
+
+if (config.db) {
+  MongoClient.connect(config.db, function(err, db) {
+    if(!err) {
+      DB = db;
+    } else {
+      console.log('mongodb err:', err);
+    }
+  });
+}

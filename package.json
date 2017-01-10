@@ -95,6 +95,7 @@
     "metalsmith-redirect": "^2.1.0",
     "metalsmith-templates": "^0.7.0",
     "metalsmith-writemetadata": "^0.4.5",
+    "mongodb": "^2.2.19",
     "nodemailer": "^2.4.1",
     "then-jade": "^2.4.1"
   },
