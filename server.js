@@ -10,6 +10,7 @@ var express = require('express'),
 var MongoClient = require('mongodb').MongoClient, DB;
 
 var metalsmith_task = require('./lib/metalsmith_task.js');
+var shopify_task = require('./lib/shopify_task.js');
 
 var debug = require('debug');
 
@@ -87,6 +88,8 @@ app.post(config.webhook, function(req, res) {
 
   function cb(err, files) {
     console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+
+    runShopify();
   }
 
   // rebuild website
@@ -151,6 +154,8 @@ var server = app.listen(port, function() {
 
   function cb(err, files) {
     console.log(new Date() + ': ' + 'Building website completed.'.green, err, files);
+
+    runShopify();
   }
 
   metalsmith_task.build(config.publicDir, config.metalsmith, cb);
@@ -169,5 +174,16 @@ if (config.db) {
     } else {
       console.log('mongodb err:', err);
     }
+  });
+}
+
+function runShopify() {
+  if (!config.shopify) {
+    return;
+  }
+
+  console.log(new Date() + ': ' + 'Starting Shopify task...'.yellow);
+  shopify_task.run(config.publicDir, config.shopify, function() {
+    console.log(new Date() + ': ' + 'Shopify task completed.'.green);
   });
 }
