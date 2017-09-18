@@ -97,7 +97,8 @@
     "metalsmith-writemetadata": "^0.4.5",
     "mongodb": "^2.2.19",
     "nodemailer": "^2.4.1",
-    "then-jade": "^2.4.1"
+    "then-jade": "^2.4.1",
+    "glob": "^7.1.2"	
   },
   "description": "Gulp server for metalsmith",
   "devDependencies": {},
