@@ -141,7 +141,11 @@ app.post('/sendemail', function(req, res) {
       console.log(error);
     } else {
       console.log("Message sent: ".green + info.response);
-      res.send('Message sent');
+      if(config.email.redirect) {
+        res.redirect('/' + config.email.redirect);
+      } else {
+        res.send('Message sent');
+      }
     }
   });
 });
