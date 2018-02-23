@@ -128,7 +128,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "warnings": [
     {
       "code": "ENOTSUP",
